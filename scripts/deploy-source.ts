@@ -1,20 +1,15 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const sourceVoter = await ethers.deployContract("SourceVoter", []);
+  const sourceVoter = await ethers.deployContract("SourceVoter", [
+    process.env.ROUTER,
+    process.env.LINK,
+  ]);
 
   await sourceVoter.waitForDeployment();
 
   console.log(
     `Source Voter deployed to: https://basescan.com/address/${await sourceVoter.getAddress()}`
-  );
-
-  const destinationVoter = await ethers.deployContract("DestinationVoter", []);
-
-  await destinationVoter.waitForDeployment();
-
-  console.log(
-    `Destination Voter deployed to: https://basescan.com/address/${await destinationVoter.getAddress()}`
   );
 }
 

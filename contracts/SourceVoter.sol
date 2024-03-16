@@ -5,6 +5,7 @@ import {LinkTokenInterface} from "@chainlink/contracts/src/v0.8/shared/interface
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
 import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
 import {Withdraw} from "./utils/Withdraw.sol";
+import {IEntryPoint} from "./interfaces/IEntryPoint.sol";
 
 contract SourceVoter is Withdraw {
     enum PayFeesIn {
@@ -29,12 +30,11 @@ contract SourceVoter is Withdraw {
         uint64 destinationChainSelector,
         address receiver,
         PayFeesIn payFeesIn,
-        uint256 proposalId,
-        uint8 support
+        IEntryPoint.PackedUserOperation calldata userOp
     ) external {
         Client.EVM2AnyMessage memory message = Client.EVM2AnyMessage({
             receiver: abi.encode(receiver),
-            data: abi.encodeWithSignature("castVote(uint256,uint8)", proposalId, support),
+            data: abi.encode(userOp),
             tokenAmounts: new Client.EVMTokenAmount[](0),
             extraArgs: "",
             feeToken: payFeesIn == PayFeesIn.LINK ? i_link : address(0)
