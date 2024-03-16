@@ -2,14 +2,14 @@ import { ethers } from "hardhat";
 
 async function main() {
   const destinationVoter = await ethers.deployContract("DestinationVoter", [
-    process.env.ROUTER,
-    process.env.ENTRY_POINT,
+    process.env.ARBITRUM_ROUTER,
+    process.env.ENTRY_POINT_ARBITRUM,
   ]);
 
   await destinationVoter.waitForDeployment();
 
   console.log(
-    `Destination Voter deployed to: https://etherscan.com/address/${await destinationVoter.getAddress()}`
+    `Destination Voter deployed to: https://arbiscan.com/address/${await destinationVoter.getAddress()}`
   );
 }
 

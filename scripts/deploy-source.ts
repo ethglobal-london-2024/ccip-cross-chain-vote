@@ -2,8 +2,8 @@ import { ethers } from "hardhat";
 
 async function main() {
   const sourceVoter = await ethers.deployContract("SourceVoter", [
-    process.env.ROUTER,
-    process.env.LINK,
+    process.env.BASE_ROUTER,
+    process.env.LINK_ON_BASE,
   ]);
 
   await sourceVoter.waitForDeployment();
