@@ -7,7 +7,7 @@ import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.s
 import {IEntryPoint} from "./interfaces/IEntryPoint.sol";
 
 contract DestinationVoter is CCIPReceiver {
-    address entryPoint;
+    address public entryPoint;
 
     event VoteSuccessful();
 
@@ -16,7 +16,7 @@ contract DestinationVoter is CCIPReceiver {
     }
 
     function _ccipReceive(Client.Any2EVMMessage memory message) internal override {
-        IEntryPoint.PackedUserOperation memory userOp = abi.decode(message.data, (IEntryPoint.PackedUserOperation));
+        IEntryPoint.UserOperation memory userOp = abi.decode(message.data, (IEntryPoint.UserOperation));
         bytes memory voteData = abi.encodeWithSelector(IEntryPoint.handleOps.selector, userOp, userOp.sender);
         (bool success,) = address(entryPoint).call(voteData);
         require(success);

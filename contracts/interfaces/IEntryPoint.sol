@@ -16,14 +16,16 @@ interface IEntryPoint {
      *                                The paymaster will pay for the transaction instead of the sender.
      * @param signature             - Sender-verified signature over the entire request, the EntryPoint address and the chain ID.
      */
-    struct PackedUserOperation {
+    struct UserOperation {
         address sender;
         uint256 nonce;
         bytes initCode;
         bytes callData;
-        bytes32 accountGasLimits;
+        uint256 callGasLimit;
+        uint256 verificationGasLimit;
         uint256 preVerificationGas;
-        bytes32 gasFees;
+        uint256 maxFeePerGas;
+        uint256 maxPriorityFeePerGas;
         bytes paymasterAndData;
         bytes signature;
     }
@@ -36,5 +38,5 @@ interface IEntryPoint {
      * @param ops         - The operations to execute.
      * @param beneficiary - The address to receive the fees.
      */
-    function handleOps(PackedUserOperation[] calldata ops, address payable beneficiary) external;
+    function handleOps(UserOperation[] calldata ops, address payable beneficiary) external;
 }

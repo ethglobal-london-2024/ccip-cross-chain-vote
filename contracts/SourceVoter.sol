@@ -30,7 +30,7 @@ contract SourceVoter is Withdraw {
         uint64 destinationChainSelector,
         address receiver,
         PayFeesIn payFeesIn,
-        IEntryPoint.PackedUserOperation calldata userOp
+        IEntryPoint.UserOperation calldata userOp
     ) external {
         Client.EVM2AnyMessage memory message = Client.EVM2AnyMessage({
             receiver: abi.encode(receiver),

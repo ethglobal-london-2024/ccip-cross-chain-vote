@@ -11,29 +11,14 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   networks: {
-    mainnet: {
-      chainId: 1,
-      url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    baseSepolia: {
+      chainId: 84532,
+      url: `https://sepolia.base.org`,
       accounts: [process.env.WALLET_PK || ""],
     },
-    goerli: {
-      chainId: 5,
-      url: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
-      accounts: [process.env.WALLET_PK || ""],
-    },
-    polygon: {
-      chainId: 137,
-      url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
-      accounts: [process.env.WALLET_PK || ""],
-    },
-    base: {
-      chainId: 8453,
-      url: `https://mainnet.base.org/`,
-      accounts: [process.env.WALLET_PK || ""],
-    },
-    avalanche: {
-      chainId: 43114,
-      url: `https://api.avax.network/ext/bc/C/rpc`,
+    arbitrumSepolia: {
+      chainId: 421614,
+      url: `https://sepolia-rollup.arbitrum.io/rpc`,
       accounts: [process.env.WALLET_PK || ""],
     },
     hardhat: {
@@ -48,8 +33,8 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      mainnet: process.env.ETHERSCAN_API_KEY || "",
-      base: process.env.BASESCAN_API_KEY || "",
+      baseSepolia: process.env.BASESCAN_API_KEY || "",
+      arbitrumSepolia: process.env.ARBISCAN_API_KEY || "",
     },
   },
   solidity: {
